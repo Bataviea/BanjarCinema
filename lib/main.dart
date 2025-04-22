@@ -1,60 +1,35 @@
 import 'package:flutter/material.dart';
-import 'colors.dart'; // <-- Import the color palette
 
-void main() {
-  runApp(BanjarCinemaApp());
-}
+void main() => runApp(BanjarCinemaApp());
 
 class BanjarCinemaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'BanjarCinema',
-      theme: ThemeData(
-        scaffoldBackgroundColor: AppColors.black,
-        primaryColor: AppColors.gold,
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Colors.black,
+        primaryColor: Colors.black,
         appBarTheme: AppBarTheme(
-          backgroundColor: AppColors.black,
-          foregroundColor: AppColors.gold,
-          elevation: 0,
-        ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: AppColors.buttonBlack,
-          selectedItemColor: AppColors.gold,
-          unselectedItemColor: AppColors.grey,
-        ),
-        textTheme: TextTheme(
-          bodyMedium: TextStyle(color: AppColors.softWhite),
-        ),
-        dropdownMenuTheme: DropdownMenuThemeData(
-          inputDecorationTheme: InputDecorationTheme(
-            filled: true,
-            fillColor: AppColors.buttonBlack,
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.softWhite),
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.white,
         ),
       ),
-      home: MainPage(),
+      home: MainNavigation(),
     );
   }
 }
 
-class MainPage extends StatefulWidget {
+class MainNavigation extends StatefulWidget {
   @override
-  _MainPageState createState() => _MainPageState();
+  _MainNavigationState createState() => _MainNavigationState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainNavigationState extends State<MainNavigation> {
   int _selectedIndex = 0;
 
-  static final List<Widget> _pages = <Widget>[
-    BerandaPage(),
-    TiketPage(),
-    AkunPage(),
-  ];
+  final List<Widget> _pages = [HomePage(), TiketPage(), ProfilPage()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -65,41 +40,32 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('BanjarCinema'),
-        centerTitle: true,
-      ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Beranda',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.movie),
-            label: 'Tiket',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Akun',
-          ),
-        ],
+        backgroundColor: Colors.black,
+        selectedItemColor: Colors.amberAccent,
+        unselectedItemColor: Colors.grey,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.confirmation_num),
+            label: 'Tiket',
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
+        ],
       ),
     );
   }
 }
 
-class BerandaPage extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Halaman Beranda',
-        style: TextStyle(color: AppColors.softWhite, fontSize: 18),
-      ),
+    return Scaffold(
+      appBar: AppBar(title: Text('Home')),
+      body: Center(child: Text('Halaman Home')),
     );
   }
 }
@@ -107,23 +73,19 @@ class BerandaPage extends StatelessWidget {
 class TiketPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Halaman Tiket',
-        style: TextStyle(color: AppColors.softWhite, fontSize: 18),
-      ),
+    return Scaffold(
+      appBar: AppBar(title: Text('Tiket')),
+      body: Center(child: Text('Halaman Tiket')),
     );
   }
 }
 
-class AkunPage extends StatelessWidget {
+class ProfilPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Halaman Akun',
-        style: TextStyle(color: AppColors.softWhite, fontSize: 18),
-      ),
+    return Scaffold(
+      appBar: AppBar(title: Text('Profil')),
+      body: Center(child: Text('Halaman Profil')),
     );
   }
 }
